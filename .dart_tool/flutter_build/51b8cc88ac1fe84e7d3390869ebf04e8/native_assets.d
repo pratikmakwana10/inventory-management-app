@@ -1,0 +1,1 @@
+ /Users/jacks/Desktop/Project/invetiry-management-app/inventory-management-app/.dart_tool/flutter_build/51b8cc88ac1fe84e7d3390869ebf04e8/native_assets.yaml: 
