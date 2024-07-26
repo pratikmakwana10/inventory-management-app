@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_management_app/pages.dart/dashboard_pg.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(
