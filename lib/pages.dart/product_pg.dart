@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:intl/intl.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -11,11 +10,9 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   final List<Product> products = [
-    Product('Product 1', _generateUniqueId(), 100, 10, DateTime.now(), true),
-    Product('Product 2', _generateUniqueId(), 200, 5,
-        DateTime.now().subtract(const Duration(days: 1)), false),
-    Product('Product 3', _generateUniqueId(), 150, 8,
-        DateTime.now().subtract(const Duration(days: 2)), true),
+    Product('Product 1', _generateUniqueId(), 100, 10, 'Category 1', true),
+    Product('Product 2', _generateUniqueId(), 200, 5, 'Category 2', false),
+    Product('Product 3', _generateUniqueId(), 150, 8, 'Category 3', true),
   ];
 
   static String _generateUniqueId() {
@@ -45,7 +42,7 @@ class _ProductPageState extends State<ProductPage> {
                   Text('Price: ₹${product.price}'),
                   Text('Quantity: ${product.quantity}'),
                   Text('Total Price: ₹$totalPrice'),
-                  Text('Added on: ${DateFormat('yyyy-MM-dd').format(product.dateAdded)}'),
+                  Text('Category: ${product.category}'),
                   Text('Status: ${product.inStock ? 'In Stock' : 'Out of Stock'}'),
                 ],
               ),
@@ -64,7 +61,7 @@ class _ProductPageState extends State<ProductPage> {
     final productNameController = TextEditingController();
     final priceController = TextEditingController();
     final quantityController = TextEditingController();
-    final dateController = TextEditingController();
+    final categoryController = TextEditingController();
     bool inStock = true;
 
     showDialog(
@@ -90,8 +87,8 @@ class _ProductPageState extends State<ProductPage> {
                 keyboardType: TextInputType.number,
               ),
               TextField(
-                controller: dateController,
-                decoration: const InputDecoration(labelText: 'Date Added (YYYY-MM-DD)'),
+                controller: categoryController,
+                decoration: const InputDecoration(labelText: 'Category'),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -121,11 +118,11 @@ class _ProductPageState extends State<ProductPage> {
                 final productName = productNameController.text;
                 final price = double.tryParse(priceController.text) ?? 0;
                 final quantity = int.tryParse(quantityController.text) ?? 0;
-                final dateAdded = DateTime.tryParse(dateController.text) ?? DateTime.now();
+                final category = categoryController.text;
 
                 setState(() {
                   products.add(Product(
-                      productName, _generateUniqueId(), price, quantity, dateAdded, inStock));
+                      productName, _generateUniqueId(), price, quantity, category, inStock));
                 });
 
                 Navigator.of(context).pop();
@@ -144,8 +141,8 @@ class Product {
   final String uniqueId;
   final double price;
   final int quantity;
-  final DateTime dateAdded;
+  final String category;
   final bool inStock;
 
-  Product(this.productName, this.uniqueId, this.price, this.quantity, this.dateAdded, this.inStock);
+  Product(this.productName, this.uniqueId, this.price, this.quantity, this.category, this.inStock);
 }

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:inventory_management_app/component/pdf_view.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'dart:io';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class InvoicePg extends StatelessWidget {
   static const Map<String, dynamic> invoiceData = {
@@ -38,6 +43,141 @@ class InvoicePg extends StatelessWidget {
 
   const InvoicePg({super.key});
 
+  Future<String> generatePdf() async {
+    final pdf = pw.Document();
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Text('Invoice ${invoiceData['invoice_number']}',
+                style: pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold)),
+            pw.SizedBox(height: 20),
+            pw.Text('Invoice Date: ${invoiceData['invoice_date']}'),
+            pw.Text('Due Date: ${invoiceData['due_date']}'),
+            pw.SizedBox(height: 20),
+            _buildPdfSellerInfo(),
+            pw.SizedBox(height: 20),
+            _buildPdfBuyerInfo(),
+            pw.SizedBox(height: 20),
+            _buildPdfItems(),
+            pw.SizedBox(height: 20),
+            _buildPdfFinancialSummary(),
+            pw.SizedBox(height: 20),
+            _buildPdfPaymentInfo(),
+            pw.SizedBox(height: 20),
+            _buildPdfAdditionalInfo(),
+          ],
+        ),
+      ),
+    );
+
+    // Save PDF to user's Desktop
+    final directory = Directory(p.join(Platform.environment['USERPROFILE']!, 'Desktop'));
+    final file = File(p.join(directory.path, 'invoice.pdf'));
+    await file.writeAsBytes(await pdf.save());
+    return file.path; // Return the file path
+//this is for macos
+    Future<Directory> getDesktopDirectory() async {
+      final homeDir =
+          Directory.current.path; // Get current directory (should be user's home directory)
+      return Directory(p.join(homeDir, 'Desktop')); // Join with 'Desktop'
+    }
+    //      tTHIS IS FOR MOBILE APP
+    // final output = await getTemporaryDirectory();
+    // final file = File("${output.path}/invoice.pdf");
+    // await file.writeAsBytes(await pdf.save());
+    // return file.path; // Return the file path
+  }
+
+  pw.Widget _buildPdfSellerInfo() {
+    final seller = invoiceData['seller'];
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(seller['company_name'], style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        pw.Text(seller['address']),
+        pw.Text('Email: ${seller['contact']['email']}'),
+        pw.Text('Phone: ${seller['contact']['phone']}'),
+      ],
+    );
+  }
+
+  pw.Widget _buildPdfBuyerInfo() {
+    final buyer = invoiceData['buyer'];
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text(buyer['customer_name'], style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        pw.Text(buyer['address']),
+        pw.Text('Email: ${buyer['contact']['email']}'),
+        pw.Text('Phone: ${buyer['contact']['phone']}'),
+      ],
+    );
+  }
+
+  pw.Widget _buildPdfItems() {
+    final items = invoiceData['items'] as List<dynamic>;
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text('Items:', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        ...items.map((item) {
+          return pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+              pw.Expanded(
+                child: pw.Text(item['description']),
+              ),
+              pw.Text('Quantity: ${item['quantity']}'),
+              pw.Text('Price: ₹${item['total_price']}'),
+            ],
+          );
+        }),
+      ],
+    );
+  }
+
+  pw.Widget _buildPdfFinancialSummary() {
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text('Subtotal: ₹${invoiceData['subtotal']}'),
+        pw.Text('Tax: ₹${invoiceData['tax']}'),
+        pw.Text('Discount: -₹${invoiceData['discount']}'),
+        pw.Text('Total: ₹${invoiceData['total']}',
+            style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+      ],
+    );
+  }
+
+  pw.Widget _buildPdfPaymentInfo() {
+    final paymentInfo = invoiceData['payment_information'];
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text('Payment Terms: ${paymentInfo['terms']}'),
+        pw.Text('Accepted Payment Methods: ${paymentInfo['accepted_methods'].join(', ')}'),
+        pw.Text('Bank Details:'),
+        pw.Text('  Account Number: ${paymentInfo['bank_details']['account_number']}'),
+        pw.Text('  Sort Code: ${paymentInfo['bank_details']['sort_code']}'),
+        pw.Text('Payment Instructions: ${paymentInfo['instructions']}'),
+      ],
+    );
+  }
+
+  pw.Widget _buildPdfAdditionalInfo() {
+    final additionalInfo = invoiceData['additional_information'];
+    return pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Text('Notes: ${additionalInfo['notes']}'),
+        pw.Text('Terms and Conditions: ${additionalInfo['terms_and_conditions']}'),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +207,18 @@ class InvoicePg extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final pdfPath = await generatePdf();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PDFScreen(path: pdfPath),
+            ),
+          );
+        },
+        child: const Icon(Icons.picture_as_pdf),
       ),
     );
   }

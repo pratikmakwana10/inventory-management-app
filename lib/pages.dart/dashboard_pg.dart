@@ -31,6 +31,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize ScreenUtil with the screen size of the context
+    ScreenUtil.init(context, designSize: const Size(1440, 1024));
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 43, 167, 198),
       appBar: AppBar(
@@ -56,15 +59,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           ),
-
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(15.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30.h),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -84,7 +84,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   Colors.green,
                                 ),
                               ),
-                              const SizedBox(width: 16),
+                              SizedBox(width: 16.w),
                               Expanded(
                                 child: _buildOverviewCard(
                                   'To Pay',
@@ -95,7 +95,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                          SizedBox(height: 16.h),
                           Row(
                             children: [
                               Expanded(
@@ -106,7 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   Colors.blue,
                                 ),
                               ),
-                              const SizedBox(width: 16),
+                              SizedBox(width: 16.w),
                               Expanded(
                                 child: _buildOverviewCard(
                                   'Week Sale',
@@ -125,10 +125,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       child: Card(
                         color: const Color.fromARGB(128, 175, 178, 177).withOpacity(0.15),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 0),
+                          padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,12 +141,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              SizedBox(height: 16.h),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   _buildCircle('To Collect', Colors.green),
-                                  const SizedBox(width: 30),
+                                  SizedBox(width: 30.w),
                                   _buildCircle('To Pay', Colors.orange),
                                 ],
                               ),
@@ -158,7 +158,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     // Pie Chart
                   ],
                 ),
-                const SizedBox(height: 30),
+                SizedBox(height: 30.h),
                 // Business Names
                 Row(
                   children: [
@@ -175,7 +175,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10), // Border radius
+                        borderRadius: BorderRadius.circular(10.r), // Border radius
                         color: const Color.fromARGB(128, 0, 0, 0).withOpacity(0.15),
                       ), // Semi-transparent background
                       child: Column(
@@ -216,11 +216,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildCircle(String text, Color borderColor) {
     return Container(
-      width: 100,
-      height: 100,
+      width: 100.w,
+      height: 100.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        border: Border.all(color: borderColor, width: 4),
+        border: Border.all(color: borderColor, width: 4.w),
         color: const Color.fromARGB(0, 207, 56, 56),
       ),
       child: Center(
@@ -228,7 +228,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           text,
           style: TextStyle(
             color: borderColor,
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -238,14 +238,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildOverviewCard(String title, String value, [IconData? icon, Color? iconColor]) {
     return Container(
-      height: 80, // Fixed height
+      height: 80.h, // Fixed height
 
-      margin: const EdgeInsets.symmetric(vertical: .0, horizontal: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      margin: EdgeInsets.symmetric(vertical: .0.h, horizontal: 10.w),
+      padding: EdgeInsets.symmetric(horizontal: 25.w),
       decoration: BoxDecoration(
         color: const Color.fromARGB(128, 175, 178, 177)
             .withOpacity(0.15), // Semi-transparent background
-        borderRadius: BorderRadius.circular(10), // Border radius
+        borderRadius: BorderRadius.circular(10.r), // Border radius
         boxShadow: const [
           // Optional: shadow to add depth
           BoxShadow(
@@ -262,22 +262,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(icon, color: iconColor, size: 30),
+                Icon(icon, color: iconColor, size: 30.sp),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 16.sp,
                         color: Colors.white, // Text color white
                       ),
                     ),
                     Text(
                       value,
-                      style: const TextStyle(
-                        fontSize: 20,
+                      style: TextStyle(
+                        fontSize: 20.sp,
                         color: Colors.white, // Text color white
                       ),
                     ),
@@ -288,17 +288,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
           else ...[
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
+                fontSize: 18.sp,
                 color: Colors.white, // Text color white
               ),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8.h),
             Text(
               value,
-              style: const TextStyle(
-                fontSize: 24,
+              style: TextStyle(
+                fontSize: 24.sp,
                 color: Colors.white, // Text color white
               ),
             ),
@@ -314,7 +314,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       decoration: BoxDecoration(
         color: const Color.fromARGB(128, 175, 178, 177)
             .withOpacity(0.15), // Semi-transparent background
-        borderRadius: BorderRadius.circular(10), // Border radius
+        borderRadius: BorderRadius.circular(10.r), // Border radius
         boxShadow: const [
           // Optional: shadow to add depth
           BoxShadow(
@@ -324,48 +324,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ],
       ),
-      margin:
-          const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0), // Reduced vertical margin
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 20), // Reduced padding
-      child: ListTile(
-        contentPadding: EdgeInsets.zero, // Remove default padding
-        leading: Icon(
-          isToPay ? Icons.arrow_downward : Icons.arrow_upward,
-          color: isToPay ? Colors.red : Colors.green, // Icon color based on the boolean value
-          size: 20, // Reduced icon size
-        ),
-        title: Text(
-          businessName,
-          style: const TextStyle(
-            fontSize: 15, // Reduced font size
-            color: Colors.white, // Text color white
-          ),
-        ),
-        subtitle: Text(
-          date,
-          style: const TextStyle(
-            fontSize: 12, // Reduced font size
-            color: Colors.white70, // Slightly lighter text color
-          ),
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              isToPay ? Icons.arrow_downward : Icons.arrow_upward,
-              color: isToPay ? Colors.red : Colors.green, // Icon color based on the boolean value
-              size: 20, // Reduced icon size
+      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            businessName,
+            style: TextStyle(
+              color: Colors.white, // Text color white
+              fontSize: 18.sp,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(width: 4), // Reduced space between icon and amount
-            Text(
-              amount,
-              style: const TextStyle(
-                fontSize: 16, // Reduced font size
-                color: Colors.white, // Text color white
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Date: $date',
+            style: TextStyle(
+              color: Colors.white, // Text color white
+              fontSize: 16.sp,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Amount: $amount',
+                style: TextStyle(
+                  color: Colors.white, // Text color white
+                  fontSize: 16.sp,
+                ),
               ),
-            ),
-          ],
-        ),
+              Icon(
+                isToPay ? Icons.arrow_downward : Icons.arrow_upward,
+                color: isToPay ? Colors.red : Colors.green,
+                size: 24.sp,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
