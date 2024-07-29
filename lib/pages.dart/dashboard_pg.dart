@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:inventory_management_app/component/bar_chart.dart';
 import 'package:inventory_management_app/component/pie_chart.dart';
 import 'package:inventory_management_app/pages.dart/client_pg.dart';
 import '../component/drawer.dart';
@@ -42,8 +41,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: buildDrawer(context),
+      drawerScrimColor: Colors.transparent.withOpacity(.7),
       body: Stack(
         children: [
           // Gradient Background
@@ -164,9 +165,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     Column(
                       children: [
-                        _buildBusinessName('Business 1', '25/07/2024', '₹5,000', true),
-                        _buildBusinessName('Business 2', '24/07/2024', '₹7,000', false),
-                        _buildBusinessName('Business 3', '23/07/2024', '₹10,000', true),
+                        _buildBusinessName('jack sparrow', '25/07/2024', '₹5,000', true),
+                        _buildBusinessName('villiam', '24/07/2024', '₹7,000', false),
+                        _buildBusinessName('Elizabeth', '23/07/2024', '₹10,000', true),
                         // Add more business names if needed
                       ],
                     ),

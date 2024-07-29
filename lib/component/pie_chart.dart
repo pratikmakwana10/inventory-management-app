@@ -35,9 +35,8 @@ class PieChartSample3State extends State<PieChartSample3> {
             borderData: FlBorderData(
               show: false,
             ),
-            sectionsSpace: 0,
-            centerSpaceColor: Colors.white,
-            centerSpaceRadius: 1.5,
+            sectionsSpace: 3,
+            centerSpaceRadius: .5,
             sections: showingSections(),
           ),
         ),
