@@ -13,8 +13,8 @@ Widget buildDrawer(BuildContext context) {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.blue,
-            Color.fromARGB(255, 3, 141, 109),
+            Color.fromARGB(255, 29, 31, 31),
+            Colors.black,
           ],
         ),
       ),
@@ -36,50 +36,8 @@ Widget buildDrawer(BuildContext context) {
               ],
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
-          commonListTile(
-            icon: Icons.dashboard,
-            title: 'Dashboard',
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          commonListTile(
-            icon: Icons.receipt,
-            title: 'Invoices',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const InvoicePg()),
-              );
-            },
-          ),
-          commonListTile(
-            icon: Icons.person,
-            title: 'Clients',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ClientPage()),
-              );
-            },
-          ),
-          commonListTile(
-            icon: Icons.bar_chart,
-            title: 'Reports',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ReportPage()),
-              );
-            },
-          ),
-          commonListTile(
+          const SizedBox(height: 10),
+          DrawerListTile(
             icon: Icons.shopping_cart,
             title: 'Product',
             onTap: () {
@@ -90,6 +48,44 @@ Widget buildDrawer(BuildContext context) {
               );
             },
           ),
+
+          DrawerListTile(
+            icon: Icons.person,
+            title: 'Clients',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ClientPage()),
+              );
+            },
+          ),
+          DrawerListTile(
+            icon: Icons.bar_chart,
+            title: 'Reports',
+            iconColor: const Color.fromARGB(255, 173, 171, 171),
+            textColor: const Color.fromARGB(255, 173, 171, 171),
+            verticalPadding: 10,
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ReportPage()),
+              );
+            },
+          ),
+          DrawerListTile(
+            icon: Icons.receipt,
+            title: 'Invoices',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const InvoicePg()),
+              );
+            },
+          ),
+
           // Add more navigation items
         ],
       ),

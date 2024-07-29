@@ -38,6 +38,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "clay_containers",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/clay_containers-0.3.4",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "clock",
       "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/clock-1.1.1",
       "packageUri": "lib/",
@@ -114,6 +120,24 @@
       "rootUri": "file:///Users/jacks/Documents/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "flutter_web_plugins",
+      "rootUri": "file:///Users/jacks/Documents/flutter/packages/flutter_web_plugins",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/http-1.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "http_parser",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "image",
@@ -195,7 +219,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/path_provider_android-2.2.7",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/path_provider_android-2.2.8",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -230,6 +254,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "pdf_widget_wrapper",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/pdf_widget_wrapper-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "petitparser",
       "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/petitparser-6.0.2",
       "packageUri": "lib/",
@@ -246,6 +276,12 @@
       "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "printing",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/printing-5.13.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
     },
     {
       "name": "provider",
@@ -320,6 +356,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "web",
+      "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/web-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "xdg_directories",
       "rootUri": "file:///Users/jacks/.pub-cache/hosted/pub.dev/xdg_directories-1.0.4",
       "packageUri": "lib/",
@@ -338,7 +380,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-07-26T10:38:15.147910Z",
+  "generated": "2024-07-29T09:00:26.853016Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///Users/jacks/Documents/flutter",
