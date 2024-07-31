@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
       // this is simple
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: Colors.blue,
-          secondary: Colors.blueAccent,
+          primary: const Color.fromARGB(255, 35, 167, 210),
+          secondary: const Color.fromARGB(255, 11, 178, 66),
         ),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Colors.black),

@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PieChartSample3 extends StatefulWidget {
   const PieChartSample3({super.key});
@@ -9,47 +10,52 @@ class PieChartSample3 extends StatefulWidget {
 }
 
 class PieChartSample3State extends State<PieChartSample3> {
-  int touchedIndex = 0;
+  int touchedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 5,
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: PieChart(
-          PieChartData(
-            pieTouchData: PieTouchData(
-              touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                setState(() {
-                  if (!event.isInterestedForInteractions ||
-                      pieTouchResponse == null ||
-                      pieTouchResponse.touchedSection == null) {
-                    touchedIndex = -1;
-                    return;
-                  }
-                  touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
-                });
-              },
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final chartSize = constraints.maxWidth < constraints.maxHeight
+            ? constraints.maxWidth
+            : constraints.maxHeight;
+        return Center(
+          child: SizedBox(
+            width: chartSize,
+            height: chartSize,
+            child: PieChart(
+              PieChartData(
+                pieTouchData: PieTouchData(
+                  touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                    setState(() {
+                      if (!event.isInterestedForInteractions ||
+                          pieTouchResponse == null ||
+                          pieTouchResponse.touchedSection == null) {
+                        touchedIndex = -1;
+                        return;
+                      }
+                      touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
+                    });
+                  },
+                ),
+                borderData: FlBorderData(show: false),
+                sectionsSpace: 3.w,
+                centerSpaceRadius: 0, // Remove the blue circle in the center
+                sections: showingSections(chartSize),
+              ),
             ),
-            borderData: FlBorderData(
-              show: false,
-            ),
-            sectionsSpace: 3,
-            centerSpaceRadius: .5,
-            sections: showingSections(),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(double chartSize) {
     return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 20.0 : 16.0;
-      final radius = isTouched ? 160.0 : 140.0;
-      final widgetSize = isTouched ? 75.0 : 50.0;
+      final fontSize = isTouched ? 20.sp : 16.sp;
+      final radius = isTouched ? chartSize * 0.4 : chartSize * 0.35;
+      final widgetSize = isTouched ? chartSize * 0.15 : chartSize * 0.1;
       const shadows = [Shadow(color: Colors.black, blurRadius: 2)];
 
       switch (i) {
@@ -135,6 +141,7 @@ class _Badge extends StatelessWidget {
     required this.size,
     required this.borderColor,
   });
+
   final String svgAsset;
   final double size;
   final Color borderColor;
@@ -150,13 +157,13 @@ class _Badge extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(
           color: borderColor,
-          width: 2,
+          width: 2.w,
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
             color: Colors.black.withOpacity(.5),
-            offset: const Offset(3, 3),
-            blurRadius: 3,
+            offset: Offset(3.w, 3.w),
+            blurRadius: 3.w,
           ),
         ],
       ),

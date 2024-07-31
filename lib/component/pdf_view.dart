@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 
 class PDFScreen extends StatelessWidget {
   final String path;
