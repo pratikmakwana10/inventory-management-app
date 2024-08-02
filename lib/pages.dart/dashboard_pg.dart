@@ -62,98 +62,98 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Padding(
             padding: EdgeInsets.all(15.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30.h),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        decoration: _commonBoxDecoration(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Sales",
-                              style: TextStyle(color: Colors.white, fontSize: 20.sp),
-                            ),
-                            SizedBox(height: 10.h),
-                            _buildOverviewRow(),
-                            SizedBox(height: 16.h),
-                            _buildOverviewRow(
-                              card1: _buildOverviewCard(
-                                'Stock Value',
-                                '₹30,000',
-                                Icons.store,
-                                Colors.blue,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30.h),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: _commonBoxDecoration(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Sales",
+                                style: TextStyle(color: Colors.white, fontSize: 20.sp),
                               ),
-                              card2: _buildOverviewCard(
-                                'Week Sale',
-                                '₹10,000',
-                                Icons.weekend,
-                                Colors.orange,
+                              SizedBox(height: 10.h),
+                              _buildOverviewRow(),
+                              SizedBox(height: 16.h),
+                              _buildOverviewRow(
+                                card1: _buildOverviewCard(
+                                  'Stock Value',
+                                  '₹30,000',
+                                  Icons.store,
+                                  Colors.blue,
+                                ),
+                                card2: _buildOverviewCard(
+                                  'Week Sale',
+                                  '₹10,000',
+                                  Icons.weekend,
+                                  Colors.orange,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        margin: EdgeInsets.all(10.w),
-                        padding: EdgeInsets.all(10.w),
-                        decoration: _commonBoxDecoration(),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            _buildActionButton(Icons.add_circle, 'Create Invoice'),
-                            _buildActionButton(Icons.add, 'Add Purchases'),
-                            _buildActionButton(Icons.trending_up, 'Add Sales'),
-                          ],
+                      Expanded(
+                        child: Container(
+                          margin: EdgeInsets.all(10.w),
+                          padding: EdgeInsets.all(10.w),
+                          decoration: _commonBoxDecoration(),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              _buildActionButton(Icons.add_circle, 'Create Invoice'),
+                              _buildActionButton(Icons.add, 'Add Purchases'),
+                              _buildActionButton(Icons.trending_up, 'Add Sales'),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        decoration: _commonBoxDecoration(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Purchases",
-                              style: TextStyle(color: Colors.white, fontSize: 20.sp),
-                            ),
-                            SizedBox(height: 10.h),
-                            _buildOverviewRow(),
-                            SizedBox(height: 16.h),
-                            _buildOverviewRow(
-                              card1: _buildOverviewCard(
-                                'Stock Value',
-                                '₹30,000',
-                                Icons.store,
-                                Colors.blue,
+                      Expanded(
+                        child: Container(
+                          decoration: _commonBoxDecoration(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Purchases",
+                                style: TextStyle(color: Colors.white, fontSize: 20.sp),
                               ),
-                              card2: _buildOverviewCard(
-                                'Week Sale',
-                                '₹10,000',
-                                Icons.weekend,
-                                Colors.orange,
+                              SizedBox(height: 10.h),
+                              _buildOverviewRow(),
+                              SizedBox(height: 16.h),
+                              _buildOverviewRow(
+                                card1: _buildOverviewCard(
+                                  'Stock Value',
+                                  '₹30,000',
+                                  Icons.store,
+                                  Colors.blue,
+                                ),
+                                card2: _buildOverviewCard(
+                                  'Week Sale',
+                                  '₹10,000',
+                                  Icons.weekend,
+                                  Colors.orange,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
+                              SizedBox(height: 10.h),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30.h),
-                // Business Names
-                Expanded(
-                  child: Row(
+                    ],
+                  ),
+                  SizedBox(height: 30.h),
+                  // Business Names
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -166,8 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                    padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
                                     child: Text(
                                       "  Sales",
                                       style: TextStyle(color: Colors.white70, fontSize: 18.sp),
@@ -260,10 +259,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                     ],
                   ),
-                ),
-                SizedBox(height: 30.h),
-                // Action Buttons
-              ],
+                  SizedBox(height: 30.h),
+                  // Action Buttons
+                ],
+              ),
             ),
           ),
         ],
@@ -287,7 +286,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildOverviewCard(String title, String value, [IconData? icon, Color? iconColor]) {
     return Container(
-      height: 80.h, // Fixed height
+      height: 100.h, // Fixed height
       margin: EdgeInsets.symmetric(vertical: .0.h, horizontal: 10.w),
       padding: EdgeInsets.symmetric(horizontal: 25.w),
       decoration: _commonBoxDecoration(),
@@ -328,87 +327,87 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildOverviewRow({Widget? card1, Widget? card2}) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: card1 ??
-              _buildOverviewCard(
-                'To Collect',
-                '₹1,20,000',
-                Icons.arrow_upward,
-                Colors.green,
-              ),
-        ),
-        SizedBox(width: 16.w),
-        Expanded(
-          child: card2 ??
-              _buildOverviewCard(
-                'To Pay',
-                '₹50,000',
-                Icons.arrow_downward,
-                Colors.red,
-              ),
-        ),
+        card1 ?? _buildOverviewCard('Total Sales', '₹50,000'),
+        card2 ?? _buildOverviewCard('Total Purchases', '₹25,000'),
       ],
     );
   }
 
   Widget _buildActionButton(IconData icon, String label) {
-    return TextButton(
-      onPressed: () {
-        // Handle button press
-      },
-      style: TextButton.styleFrom(
-        foregroundColor: Colors.white, padding: EdgeInsets.all(8.w), // Add padding if needed
-        backgroundColor: Colors.transparent, // Text color
-        splashFactory: InkSplash.splashFactory, // Use splash effect
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Center content vertically
-          children: [
-            Icon(icon, size: 30.sp, color: Colors.white),
-            SizedBox(height: 4.h), // Add spacing between icon and text
-            Text(
-              label,
-              style: TextStyle(color: Colors.white, fontSize: 14.sp),
-            ),
-          ],
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconButton(
+          icon: Icon(icon, color: Colors.white, size: 24.sp),
+          onPressed: () {
+            // Handle button press
+          },
         ),
-      ),
+        SizedBox(height: 4.h),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12.sp,
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildBusinessName(String name, String date, String value, bool isPaid) {
-    return Container(
-      margin: EdgeInsets.all(10.w),
-      padding: EdgeInsets.all(10.w),
-      decoration: _commonBoxDecoration(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            name,
-            style: TextStyle(color: Colors.white, fontSize: 16.sp),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                date,
-                style: TextStyle(color: Colors.white70, fontSize: 12.sp),
+  Widget _buildBusinessName(String businessName, String date, String amount, bool claimed) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+      child: Container(
+        padding: EdgeInsets.all(10.w),
+        decoration: _commonBoxDecoration(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              businessName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+                color: Colors.white, // Text color white
               ),
-              Text(
-                value,
-                style: TextStyle(
-                  color: isPaid ? Colors.green : Colors.red,
-                  fontSize: 16.sp,
+            ),
+            Text(
+              date,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.white, // Text color white
+              ),
+            ),
+            Text(
+              amount,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.white, // Text color white
+              ),
+            ),
+            Row(
+              children: [
+                Text(
+                  'Status: ',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: Colors.white, // Text color white
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                Text(
+                  claimed ? 'Claimed' : 'Pending',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    color: claimed ? Colors.green : Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
