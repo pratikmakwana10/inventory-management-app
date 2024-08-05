@@ -10,11 +10,11 @@
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.bin</key>
 		<data>
-		1PD3KUuPfZGwW94sQ+r0hOD8NHI=
+		1mp8zWQ5Y50EcSExezGo09jXqmc=
 		</data>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<data>
-		y0wfLTtTKPCic17V4wIxUZp2SZU=
+		PA1190bz2YnPzH8TFrySMnYaobU=
 		</data>
 		<key>Resources/flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Resources/flutter_assets/NOTICES.Z</key>
 		<data>
-		w8dw4kTfDtGLE6Y58X7DEytBHbQ=
+		qDQYgLHms5FU/OGNnsWSCER/sVk=
 		</data>
 		<key>Resources/flutter_assets/assets/business-and-finance.png</key>
 		<data>
@@ -44,9 +44,17 @@
 		<data>
 		c4IQMQY8QUoDXlynLEF0+K3jTWg=
 		</data>
+		<key>Resources/flutter_assets/assets/octagon.png</key>
+		<data>
+		HTrR1X/JEsmGuqUgQQDkWGRDhiY=
+		</data>
 		<key>Resources/flutter_assets/assets/profit.png</key>
 		<data>
 		FIftL8f8bie9fP/V8QeKSKCWLZk=
+		</data>
+		<key>Resources/flutter_assets/assets/trash.png</key>
+		<data>
+		qiHPZRB/WQVEsaDsyzJAmXJBBHU=
 		</data>
 		<key>Resources/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
@@ -54,11 +62,11 @@
 		</data>
 		<key>Resources/flutter_assets/isolate_snapshot_data</key>
 		<data>
-		lKuH9ddHfuQ0gay79iWXgmH3gCo=
+		NOOuIrmqIJHAECyJhxYTSwmeSfs=
 		</data>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<data>
-		QTCKh93Iq9t/Mw5wT9YS9XH1ip4=
+		5HB+kzILBafalZG6XWx/J0/gkqs=
 		</data>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
 		<data>
@@ -86,14 +94,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			3eT5EUnQetFrXVp9HWA2GRNpSk4oHhTMX6hImaDj7Ys=
+			UmO1/nkSa6NnOwUPrKHvTpVSw7eLMxY4omqO2Uu1rVw=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cuuDdYVJg/pO7HtytzoDsBGYJTAGaluNu5q3hK8qskw=
+			HXKztPmrjkeafNNafmmLyP3OQIuOY9UnuTo5gUYuvAA=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/FontManifest.json</key>
@@ -107,7 +115,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6JPUwJa8ZmY8rz9f4JxF49CvjuF1bOq8Nl6cgXXLojo=
+			CTVfauHlXYDTap242fCtPP2LplBuM2HvtDg8wPf9KOY=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/assets/business-and-finance.png</key>
@@ -145,11 +153,25 @@
 			AVYQIAFPTxhSkMTuQh6ccsuxAuCzJ1JPDTBf3rDWlIw=
 			</data>
 		</dict>
+		<key>Resources/flutter_assets/assets/octagon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ea/B31Mm0xtb4wvPEaFqRSTZJpgTbeQEhGTPkIfSeyM=
+			</data>
+		</dict>
 		<key>Resources/flutter_assets/assets/profit.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			R4sr/VRsQnudwdbRTtP6Q+21YszW1IDLZC0gArerWIA=
+			</data>
+		</dict>
+		<key>Resources/flutter_assets/assets/trash.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8lrSQwGZ3R7tmLrMpFH1GxYD1WbkN42vCnmdxQnBWCI=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/fonts/MaterialIcons-Regular.otf</key>
@@ -163,14 +185,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0HgzM7ffFWRkpC0Cac4XAGW8JBmGpYBYFYO5Oqv45xU=
+			ZXgx8A4Zzj2le7NQFnsz1lOzJ640XPWxEuPwtsgqWWk=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/kernel_blob.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gd6gM46mawcrqnG5heE7cHzSOKcODUyu+H7KujgSD9k=
+			c5GtSuzm4SIN8d1VeXDQV80H3MH9keGDnqpe+9sziHk=
 			</data>
 		</dict>
 		<key>Resources/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf</key>
