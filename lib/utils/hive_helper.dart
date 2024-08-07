@@ -74,7 +74,7 @@ class HiveHelper {
 
   /// Clears all data from all Hive boxes.
   Future<void> clearPreferencesData() async {
-    // TODO : Add all the keys here also to clear preference
+    //  Add all the keys here also to clear preference
     final boxKeys = <String>[
       // HiveConstants.userBox,
       // HiveConstants.userData,
