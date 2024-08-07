@@ -165,103 +165,222 @@ class _ProductPageState extends State<ProductPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: const Text('Add Product'),
-          content: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: productNameController,
-                  decoration: const InputDecoration(labelText: 'Product Name'),
-                ),
-                TextField(
-                  controller: purchasePriceController,
-                  decoration: const InputDecoration(labelText: 'Purchase Price'),
-                  keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  controller: salePriceController,
-                  decoration: const InputDecoration(labelText: 'Sale Price'),
-                  keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  controller: quantityController,
-                  decoration: const InputDecoration(labelText: 'Quantity'),
-                  keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  controller: categoryController,
-                  decoration: const InputDecoration(labelText: 'Category'),
-                ),
-                TextField(
-                  controller: unitController,
-                  decoration: const InputDecoration(labelText: 'Unit (e.g., kg, gram)'),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text('Add Product'),
+              contentPadding: const EdgeInsets.all(24.0), // Increased padding
+              content: SizedBox(
+                width: 600.w, // Adjust width as needed
+                height: 500.h, // Adjust height as needed
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('In Stock:'),
-                    Checkbox(
-                      activeColor: Colors.green,
-                      checkColor: Colors.white,
-                      value: inStock,
-                      onChanged: (bool? value) {
-                        setState(() {
-                          inStock = value ?? true;
-                          _logger.i('In Stock status changed to: $inStock');
-                        });
-                      },
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150.w, // Adjust label width
+                          child: const Text('Product Name: '),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            textCapitalization: TextCapitalization.sentences,
+                            controller: productNameController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Adjust spacing
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150.w, // Adjust label width
+                          child: const Text('Purchase Price: '),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: purchasePriceController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Adjust spacing
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150.w, // Adjust label width
+                          child: const Text('Sale Price: '),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: salePriceController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Adjust spacing
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150.w, // Adjust label width
+                          child: const Text('Quantity: '),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: quantityController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Adjust spacing
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150.w, // Adjust label width
+                          child: const Text('Category:'),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: categoryController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Adjust spacing
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 150.w, // Adjust label width
+                          child: const Text('Unit(gm):'),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: unitController,
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Adjust spacing
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text('In Stock:'),
+                        const SizedBox(
+                          width: 60,
+                        ),
+                        Checkbox(
+                          activeColor: Colors.green,
+                          checkColor: Colors.white,
+                          value: inStock,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              inStock = value ?? true;
+                              _logger.i('In Stock status changed to: $inStock');
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    _logger.i('Add Product dialog cancelled.');
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(color: Color.fromARGB(255, 93, 91, 91), fontSize: 20),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    final productName = productNameController.text;
+                    final purchasePrice = double.tryParse(purchasePriceController.text) ?? 0;
+                    final salePrice = double.tryParse(salePriceController.text) ?? 0;
+                    final quantity = int.tryParse(quantityController.text) ?? 0;
+                    final category = categoryController.text;
+                    final unit = unitController.text;
+
+                    if (productName.isEmpty) {
+                      _logger.w('Product name is empty. Cannot add product.');
+                      return;
+                    }
+
+                    final product = Product(
+                      productName: productName,
+                      uniqueId: _generateUniqueId(),
+                      purchasePrice: purchasePrice,
+                      quantity: quantity,
+                      category: category,
+                      salePrice: salePrice,
+                      unit: unit,
+                      inStock: inStock,
+                    );
+
+                    setState(() {
+                      productBox.add(product);
+                      _logger
+                          .i('Added product: ${product.productName} with ID: ${product.uniqueId}');
+                    });
+
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    'Add',
+                    style: TextStyle(color: Color.fromARGB(255, 93, 91, 91), fontSize: 20),
+                  ),
+                ),
               ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                _logger.i('Add Product dialog cancelled.');
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                final productName = productNameController.text;
-                final purchasePrice = double.tryParse(purchasePriceController.text) ?? 0;
-                final salePrice = double.tryParse(salePriceController.text) ?? 0;
-                final quantity = int.tryParse(quantityController.text) ?? 0;
-                final category = categoryController.text;
-                final unit = unitController.text;
-
-                if (productName.isEmpty) {
-                  _logger.w('Product name is empty. Cannot add product.');
-                  return;
-                }
-
-                final product = Product(
-                  productName: productName,
-                  uniqueId: _generateUniqueId(),
-                  purchasePrice: purchasePrice,
-                  quantity: quantity,
-                  category: category,
-                  salePrice: salePrice,
-                  unit: unit,
-                  inStock: inStock,
-                );
-
-                setState(() {
-                  productBox.add(product);
-                  _logger.i('Added product: ${product.productName} with ID: ${product.uniqueId}');
-                });
-
-                Navigator.of(context).pop();
-              },
-              child: const Text('Add'),
-            ),
-          ],
+            );
+          },
         );
       },
     );

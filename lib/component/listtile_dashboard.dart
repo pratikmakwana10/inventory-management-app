@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:clay_containers/clay_containers.dart';
 
 class DrawerListTile extends StatelessWidget {
   final IconData icon;
@@ -16,7 +15,7 @@ class DrawerListTile extends StatelessWidget {
     required this.title,
     required this.onTap,
     this.iconColor = const Color.fromARGB(255, 169, 169, 169),
-    this.textColor = const Color.fromARGB(255, 169, 169, 169),
+    this.textColor = const Color.fromARGB(255, 255, 253, 253),
     this.verticalPadding = 10,
     this.horizontalPadding = 5,
   });
@@ -24,14 +23,20 @@ class DrawerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: verticalPadding, horizontal: 0),
-      child: ClayContainer(
-        spread: 2,
-        customBorderRadius: const BorderRadius.only(topRight: Radius.circular(10)),
-        emboss: true,
-        color: Colors.grey[900],
-        borderRadius: 10,
-        depth: 50,
+      padding: EdgeInsets.symmetric(vertical: verticalPadding, horizontal: horizontalPadding),
+      child: Container(
+        decoration: BoxDecoration(
+          // color: Colors.grey[900], // Background color
+          borderRadius: BorderRadius.circular(10), // Border radius
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.3),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: const Offset(0, 2), // Shadow position
+            ),
+          ],
+        ),
         child: ListTile(
           leading: Icon(icon, color: iconColor),
           title: Text(title, style: TextStyle(color: textColor)),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inventory_management_app/component/listtile_dashboard.dart';
-import 'package:inventory_management_app/pages.dart/client_pg.dart';
+import 'package:inventory_management_app/pages.dart/salesman_pg.dart';
 import 'package:inventory_management_app/pages.dart/invoice_pg.dart';
 import 'package:inventory_management_app/pages.dart/product_pg.dart';
 import 'package:inventory_management_app/pages.dart/report_pg.dart';
@@ -13,8 +13,8 @@ Widget buildDrawer(BuildContext context) {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color.fromARGB(255, 29, 31, 31),
-            Colors.black,
+            Color.fromARGB(255, 4, 116, 208),
+            Color.fromARGB(255, 4, 147, 113),
           ],
         ),
       ),
@@ -48,7 +48,6 @@ Widget buildDrawer(BuildContext context) {
               );
             },
           ),
-
           DrawerListTile(
             icon: Icons.person,
             title: 'Clients',
@@ -56,16 +55,13 @@ Widget buildDrawer(BuildContext context) {
               Navigator.pop(context);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ClientPage()),
+                MaterialPageRoute(builder: (context) => const SlaesmanPg()),
               );
             },
           ),
           DrawerListTile(
             icon: Icons.bar_chart,
             title: 'Reports',
-            iconColor: const Color.fromARGB(255, 173, 171, 171),
-            textColor: const Color.fromARGB(255, 173, 171, 171),
-            verticalPadding: 10,
             onTap: () {
               Navigator.pop(context);
               Navigator.push(
@@ -85,7 +81,6 @@ Widget buildDrawer(BuildContext context) {
               );
             },
           ),
-
           // Add more navigation items
         ],
       ),
