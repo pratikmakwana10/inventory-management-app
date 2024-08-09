@@ -11,10 +11,8 @@ class ProductAdapter extends TypeAdapter<Product> {
       productName: reader.readString(),
       uniqueId: reader.readString(),
       purchasePrice: reader.readDouble(),
-      quantity: reader.readInt(),
-      category: reader.readString(),
       salePrice: reader.readDouble(),
-      unit: reader.readString(),
+      quantity: reader.readInt(),
       inStock: reader.readBool(),
     );
   }
@@ -24,10 +22,8 @@ class ProductAdapter extends TypeAdapter<Product> {
     writer.writeString(obj.productName);
     writer.writeString(obj.uniqueId);
     writer.writeDouble(obj.purchasePrice);
-    writer.writeInt(obj.quantity);
-    writer.writeString(obj.category);
     writer.writeDouble(obj.salePrice);
-    writer.writeString(obj.unit);
+    writer.writeInt(obj.quantity);
     writer.writeBool(obj.inStock);
   }
 }
