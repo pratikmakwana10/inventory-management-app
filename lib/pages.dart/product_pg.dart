@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:inventory_management_app/models/product_model.dart'; // Adjust the path as needed
+import 'package:inventory_management_app/models/product_model.dart';
 import 'package:inventory_management_app/component/floating_button.dart';
 import 'package:logger/logger.dart';
+import 'package:inventory_management_app/pages.dart/dashboard_pg.dart'; // Import DashboardScreen
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -64,78 +66,14 @@ class _ProductPageState extends State<ProductPage> {
               child: ValueListenableBuilder<Box<Product>>(
                 valueListenable: productBox.listenable(),
                 builder: (context, box, _) {
-                  final products = box.values.toList();
+                  final products = box.values.toList().reversed.toList();
                   _logger.i('Displaying ${products.length} products.');
                   return ListView.builder(
                     padding: const EdgeInsets.all(16.0),
                     itemCount: products.length,
                     itemBuilder: (context, index) {
                       final product = products[index];
-                      final totalPrice = product.salePrice * product.quantity;
-                      return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8.0),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(128, 175, 178, 177).withOpacity(0.15),
-                          borderRadius: BorderRadius.circular(10.0),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 4,
-                              offset: Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: ListTile(
-                          contentPadding: const EdgeInsets.all(16.0),
-                          title: Text(product.productName,
-                              style: const TextStyle(color: Colors.white)),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Purchase Price: ₹${product.purchasePrice}',
-                                  style: const TextStyle(color: Colors.white)),
-                              Text('Sale Price: ₹${product.salePrice}',
-                                  style: const TextStyle(color: Colors.white)),
-                              Text('Quantity: ${product.quantity} ${product.unit}',
-                                  style: const TextStyle(color: Colors.white)),
-                              Text('Total Price: ₹$totalPrice',
-                                  style: const TextStyle(color: Colors.white)),
-                              Text('Category: ${product.category}',
-                                  style: const TextStyle(color: Colors.white)),
-                              Row(
-                                children: [
-                                  const Text("Status:", style: TextStyle(color: Colors.white)),
-                                  Text(
-                                    ' ${product.inStock ? 'In Stock' : 'Out of Stock'}',
-                                    style: TextStyle(
-                                      color: product.inStock
-                                          ? const Color.fromARGB(255, 91, 255, 96)
-                                          : const Color.fromARGB(255, 255, 0, 0),
-                                      shadows: [
-                                        Shadow(
-                                          color: Colors.black.withOpacity(0.5),
-                                          offset: const Offset(1, 1),
-                                          blurRadius: 3,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          trailing: IconButton(
-                            icon: Image.asset(
-                              'assets/trash.png',
-                              // width: 44.w,
-                              // height: 44.h,
-                            ),
-                            onPressed: () {
-                              _removeProduct(index);
-                            },
-                          ),
-                        ),
-                      );
+                      return _buildProductTile(product, index);
                     },
                   );
                 },
@@ -153,13 +91,161 @@ class _ProductPageState extends State<ProductPage> {
     );
   }
 
+  Widget _buildProductTile(Product product, int index) {
+    final totalPrice = product.salePrice * product.quantity;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(128, 175, 178, 177).withOpacity(0.15),
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16.0),
+        title: Text(product.productName, style: const TextStyle(color: Colors.white, fontSize: 18)),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text('Purchase Price: ₹${product.purchasePrice.toStringAsFixed(2)}',
+                    style: const TextStyle(color: Colors.white)),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.remove, color: Colors.white),
+                  onPressed: () => _updatePurchasePrice(index, -1),
+                ),
+                Text(product.purchasePrice.toStringAsFixed(2),
+                    style: const TextStyle(color: Colors.white)),
+                IconButton(
+                  icon: const Icon(Icons.add, color: Colors.white),
+                  onPressed: () => _updatePurchasePrice(index, 1),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Sale Price: ₹${product.salePrice.toStringAsFixed(2)}',
+                    style: const TextStyle(color: Colors.white)),
+                const Spacer(),
+                IconButton(
+                  icon: const Icon(Icons.remove, color: Colors.white),
+                  onPressed: () => _updateSalePrice(index, -1),
+                ),
+                Text(product.salePrice.toStringAsFixed(2),
+                    style: const TextStyle(color: Colors.white)),
+                IconButton(
+                  icon: const Icon(Icons.add, color: Colors.white),
+                  onPressed: () => _updateSalePrice(index, 1),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text('Quantity: ${product.quantity}', style: const TextStyle(color: Colors.white)),
+                const Spacer(),
+                Text(
+                  'Status: ${product.inStock ? 'In Stock' : 'Out of Stock'}',
+                  style: TextStyle(
+                    color: product.inStock
+                        ? const Color.fromARGB(255, 91, 255, 96)
+                        : const Color.fromARGB(255, 255, 0, 0),
+                    shadows: [
+                      Shadow(
+                        color: Colors.black.withOpacity(0.5),
+                        offset: const Offset(1, 1),
+                        blurRadius: 3,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Center(
+              child: Text('Total Price: ₹${totalPrice.toStringAsFixed(2)}',
+                  style: const TextStyle(color: Colors.white, fontSize: 16)),
+            ),
+          ],
+        ),
+        trailing: IconButton(
+          icon: SvgPicture.asset(
+            'assets/delete-icon.svg',
+            width: 35.w,
+            height: 35.h,
+          ),
+          onPressed: () => _removeProduct(product.uniqueId),
+        ),
+      ),
+    );
+  }
+
+  void _updatePurchasePrice(int index, int change) {
+    setState(() {
+      final product = productBox.getAt(index);
+      if (product != null) {
+        final updatedProduct = product.copyWith(
+          purchasePrice: max(product.purchasePrice + change, 0),
+        );
+        productBox.putAt(index, updatedProduct);
+        _logger.i(
+            'Updated Purchase Price for ${product.productName}: ${updatedProduct.purchasePrice}');
+      }
+    });
+  }
+
+  void _updateSalePrice(int index, int change) {
+    setState(() {
+      final product = productBox.getAt(index);
+      if (product != null) {
+        final updatedProduct = product.copyWith(
+          salePrice: max(product.salePrice + change, 0),
+        );
+        productBox.putAt(index, updatedProduct);
+        _logger.i('Updated Sale Price for ${product.productName}: ${updatedProduct.salePrice}');
+      }
+    });
+  }
+
+  void _updateQuantity(int index, int change) {
+    setState(() {
+      final product = productBox.getAt(index);
+      if (product != null) {
+        final updatedProduct = product.copyWith(
+          quantity: max(product.quantity + change, 0),
+        );
+        productBox.putAt(index, updatedProduct);
+        _logger.i('Updated Quantity for ${product.productName}: ${updatedProduct.quantity}');
+      }
+    });
+  }
+
+  void _removeProduct(String uniqueId) {
+    setState(() {
+      final productIndex =
+          productBox.values.toList().indexWhere((product) => product.uniqueId == uniqueId);
+      if (productIndex != -1) {
+        final product = productBox.getAt(productIndex);
+        if (product != null) {
+          productBox.deleteAt(productIndex);
+          _logger.i('Removed ${product.productName} from the product list.');
+          _updateRecentTransactions(); // Notify DashboardScreen
+        }
+      }
+    });
+  }
+
   void _showAddProductDialog(BuildContext context) {
     final productNameController = TextEditingController();
     final purchasePriceController = TextEditingController();
     final salePriceController = TextEditingController();
     final quantityController = TextEditingController();
-    final categoryController = TextEditingController();
-    final unitController = TextEditingController();
     bool inStock = true;
 
     showDialog(
@@ -169,158 +255,76 @@ class _ProductPageState extends State<ProductPage> {
           builder: (context, setState) {
             return AlertDialog(
               title: const Text('Add Product'),
-              contentPadding: const EdgeInsets.all(24.0), // Increased padding
+              contentPadding: const EdgeInsets.all(24.0),
               content: SizedBox(
-                width: 600.w, // Adjust width as needed
-                height: 500.h, // Adjust height as needed
+                width: 600.w,
+                height: 400.h,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Row(
                       children: [
                         SizedBox(
-                          width: 150.w, // Adjust label width
-                          child: const Text('Product Name: '),
+                          width: 150.w,
+                          child: const Text('Product Name:'),
                         ),
                         Expanded(
                           child: TextField(
-                            textCapitalization: TextCapitalization.sentences,
                             controller: productNameController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                            ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16), // Adjust spacing
                     Row(
                       children: [
                         SizedBox(
-                          width: 150.w, // Adjust label width
-                          child: const Text('Purchase Price: '),
+                          width: 150.w,
+                          child: const Text('Purchase Price:'),
                         ),
                         Expanded(
                           child: TextField(
                             controller: purchasePriceController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                            ),
                             keyboardType: TextInputType.number,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16), // Adjust spacing
                     Row(
                       children: [
                         SizedBox(
-                          width: 150.w, // Adjust label width
-                          child: const Text('Sale Price: '),
+                          width: 150.w,
+                          child: const Text('Sale Price:'),
                         ),
                         Expanded(
                           child: TextField(
                             controller: salePriceController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                            ),
                             keyboardType: TextInputType.number,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16), // Adjust spacing
                     Row(
                       children: [
                         SizedBox(
-                          width: 150.w, // Adjust label width
-                          child: const Text('Quantity: '),
+                          width: 150.w,
+                          child: const Text('Quantity:'),
                         ),
                         Expanded(
                           child: TextField(
                             controller: quantityController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                            ),
                             keyboardType: TextInputType.number,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 16), // Adjust spacing
                     Row(
-                      children: [
-                        SizedBox(
-                          width: 150.w, // Adjust label width
-                          child: const Text('Category:'),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: categoryController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16), // Adjust spacing
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 150.w, // Adjust label width
-                          child: const Text('Unit(gm):'),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: unitController,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.all(12.w), // Adjust padding
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8.r),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16), // Adjust spacing
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         const Text('In Stock:'),
-                        const SizedBox(
-                          width: 60,
-                        ),
-                        Checkbox(
-                          activeColor: Colors.green,
-                          checkColor: Colors.white,
+                        Switch(
                           value: inStock,
-                          onChanged: (bool? value) {
+                          onChanged: (value) {
                             setState(() {
-                              inStock = value ?? true;
-                              _logger.i('In Stock status changed to: $inStock');
+                              inStock = value;
                             });
                           },
                         ),
@@ -332,51 +336,26 @@ class _ProductPageState extends State<ProductPage> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    _logger.i('Add Product dialog cancelled.');
+                    final newProduct = Product(
+                      uniqueId: _generateUniqueId(),
+                      productName: productNameController.text,
+                      purchasePrice: double.tryParse(purchasePriceController.text) ?? 0,
+                      salePrice: double.tryParse(salePriceController.text) ?? 0,
+                      quantity: int.tryParse(quantityController.text) ?? 0,
+                      inStock: inStock,
+                    );
+                    productBox.add(newProduct);
                     Navigator.of(context).pop();
+                    _logger.i('Added new product: ${newProduct.productName}');
+                    _updateRecentTransactions(); // Notify DashboardScreen
                   },
-                  child: const Text(
-                    'Cancel',
-                    style: TextStyle(color: Color.fromARGB(255, 93, 91, 91), fontSize: 20),
-                  ),
+                  child: const Text('Add'),
                 ),
                 TextButton(
                   onPressed: () {
-                    final productName = productNameController.text;
-                    final purchasePrice = double.tryParse(purchasePriceController.text) ?? 0;
-                    final salePrice = double.tryParse(salePriceController.text) ?? 0;
-                    final quantity = int.tryParse(quantityController.text) ?? 0;
-                    final category = categoryController.text;
-                    final unit = unitController.text;
-
-                    if (productName.isEmpty) {
-                      _logger.w('Product name is empty. Cannot add product.');
-                      return;
-                    }
-
-                    final product = Product(
-                      productName: productName,
-                      uniqueId: _generateUniqueId(),
-                      purchasePrice: purchasePrice,
-                      quantity: quantity,
-                      category: category,
-                      salePrice: salePrice,
-                      unit: unit,
-                      inStock: inStock,
-                    );
-
-                    setState(() {
-                      productBox.add(product);
-                      _logger
-                          .i('Added product: ${product.productName} with ID: ${product.uniqueId}');
-                    });
-
                     Navigator.of(context).pop();
                   },
-                  child: const Text(
-                    'Add',
-                    style: TextStyle(color: Color.fromARGB(255, 93, 91, 91), fontSize: 20),
-                  ),
+                  child: const Text('Cancel'),
                 ),
               ],
             );
@@ -387,20 +366,16 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   String _generateUniqueId() {
-    final id = Random().nextInt(100000).toString().padLeft(5, '0');
-    _logger.i('Generated unique ID: $id');
-    return id;
+    final rng = Random();
+    int uniqueId;
+    do {
+      uniqueId = rng.nextInt(100000);
+    } while (productBox.values.any((product) => product.uniqueId == uniqueId));
+    return uniqueId.toString();
   }
 
-  void _removeProduct(int index) {
-    try {
-      final product = productBox.getAt(index);
-      if (product != null) {
-        productBox.deleteAt(index);
-        setState(() {});
-      }
-    } catch (e) {
-      _logger.e('Failed to remove product at index $index: $e');
-    }
+  void _updateRecentTransactions() {
+    // Implement a method to notify the DashboardScreen or any other page to update recent transactions.
+    // This could be done using a state management solution or by triggering a callback.
   }
 }

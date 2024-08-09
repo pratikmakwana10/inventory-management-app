@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inventory_management_app/models/product_adapter.dart';
-import 'pages.dart/dashboard_pg.dart'; // Ensure path is correct
+import 'package:inventory_management_app/pages.dart/dashboard_pg.dart';
+import 'models/product_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive and open boxes
   await Hive.initFlutter();
-  Hive.registerAdapter(ProductAdapter()); // Ensure your adapter is registered
+  Hive.registerAdapter(ProductAdapter()); // Register your adapter
+  await Hive.openBox<Product>('productsBox'); // Use the correct box name and type
+
   runApp(const MyApp());
 }
 
@@ -45,7 +50,7 @@ class MyApp extends StatelessWidget {
         labelLarge: TextStyle(fontFamily: 'MontserratAce'),
         labelSmall: TextStyle(fontFamily: 'MontserratAce'),
       ),
-      primaryColor: const Color.fromARGB(255, 19, 29, 31),
+      primaryColor: const Color.fromARGB(255, 47, 165, 189),
       appBarTheme: const AppBarTheme(
         color: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.white),

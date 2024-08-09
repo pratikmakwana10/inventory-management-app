@@ -33,16 +33,14 @@ class _RecentTransactionsWidgetState extends State<RecentTransactionsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ValueListenableBuilder<Box<Product>>(
-      valueListenable: Hive.box<Product>('productBox').listenable(),
+      valueListenable: productBox.listenable(),
       builder: (context, box, _) {
-        final products = box.values.toList();
-        products.sort((a, b) =>
-            b.uniqueId.compareTo(a.uniqueId)); // Sort by uniqueId to get the latest transactions
-        final recentTransactions = products.take(3).toList();
+        final products = box.values.toList().reversed.take(3).toList(); // Take the last 3 products
 
         return Container(
-          height: 300.h, // Fixed height for the container
           margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
           padding: EdgeInsets.all(10.w),
           decoration: _commonBoxDecoration(),
@@ -53,51 +51,47 @@ class _RecentTransactionsWidgetState extends State<RecentTransactionsWidget> {
                 padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 10.w),
                 child: Text(
                   'Recent Transactions',
-                  style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
+                  style: theme.textTheme.bodyLarge?.copyWith(
                     color: Colors.white,
                   ),
                 ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: recentTransactions.length,
-                  itemBuilder: (context, index) {
-                    final product = recentTransactions[index];
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: 5.h),
-                      padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 15.w),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(128, 175, 178, 177).withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8.r),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 2,
-                            offset: Offset(0, 1),
-                          ),
-                        ],
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 5.h),
+                    padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                    decoration: _commonBoxDecoration(),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(
+                        product.productName,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(
-                          product.productName,
-                          style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                      subtitle: Text(
+                        'Quantity: ${product.quantity}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.white70,
                         ),
-                        subtitle: Text(
-                          'Quantity: ${product.quantity} ${product.unit}',
-                          style: TextStyle(color: Colors.white70, fontSize: 14.sp),
-                        ),
-                        trailing: Text(
-                          '₹${product.salePrice * product.quantity}',
-                          style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: Text(
+                        '₹${product.salePrice}',
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: Colors.white,
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

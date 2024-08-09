@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inventory_management_app/component/pie_chart.dart';
 import 'package:inventory_management_app/pages.dart/invoice_pg.dart';
 import 'package:inventory_management_app/pages.dart/product_pg.dart';
@@ -17,14 +17,15 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   late Box productBox;
+
   @override
   void initState() {
     super.initState();
+    // Open the Hive box here if needed
   }
 
   @override
   Widget build(BuildContext context) {
-    // Initialize ScreenUtil with the screen size of the context
     ScreenUtil.init(context, designSize: const Size(1440, 1024));
 
     return Scaffold(
@@ -32,11 +33,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       appBar: AppBar(
         title: Text(
           'Dashboard',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 24.sp,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'MontserratAce'),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                color: Colors.white,
+                fontSize: 24.sp,
+                fontWeight: FontWeight.w500,
+              ),
         ),
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.white, size: 24.sp),
@@ -45,7 +46,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       drawerScrimColor: Colors.transparent.withOpacity(.7),
       body: Stack(
         children: [
-          // Gradient Background
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -64,189 +64,106 @@ class _DashboardScreenState extends State<DashboardScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30.h),
-                // Sales and Purchases Row
                 Row(
                   children: [
-                    // Sales Section
                     Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
-                        decoration: _commonBoxDecoration(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 10),
-                            Text(
-                              "Sales",
-                              style: TextStyle(color: Colors.white, fontSize: 20.sp),
-                            ),
-                            _buildOverviewRow(
-                              card1: _buildOverviewCard(
-                                'Stock Value',
-                                '₹30,000',
-                                Icons.store,
-                                Colors.blue,
-                              ),
-                              card2: _buildOverviewCard(
-                                'Week Sale',
-                                '₹10,000',
-                                Icons.weekend,
-                                Colors.orange,
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            // Add chart below the overview cards
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: SizedBox(
-                                    height: 350.h, // Adjusted height
-                                    child: const PieChartSample3(),
-                                  ),
-                                ),
-                                SizedBox(width: 10.w),
-                                const Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [RecentTransactionsWidget()],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
-                        ),
-                      ),
+                      child: _buildSection(context, "Sales", Colors.blue),
                     ),
                     SizedBox(width: 10.w),
-                    // Purchases Section
                     Expanded(
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
-                        decoration: _commonBoxDecoration(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              "Purchases",
-                              style: TextStyle(color: Colors.white, fontSize: 20.sp),
-                            ),
-                            _buildOverviewRow(
-                              card1: _buildOverviewCard(
-                                'Stock Value',
-                                '₹30,000',
-                                Icons.store,
-                                Colors.blue,
-                              ),
-                              card2: _buildOverviewCard(
-                                'Week Purchase',
-                                '₹10,000',
-                                Icons.weekend,
-                                Colors.orange,
-                              ),
-                            ),
-                            SizedBox(height: 10.h),
-                            // Add chart below the overview cards
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: SizedBox(
-                                    height: 350.h, // Adjusted height
-                                    child: const PieChartSample3(),
-                                  ),
-                                ),
-                                SizedBox(width: 10.w),
-                                const Expanded(
-                                  flex: 1,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [RecentTransactionsWidget()],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
-                        ),
-                      ),
+                      child: _buildSection(context, "Purchases", Colors.orange),
                     ),
                   ],
                 ),
                 const Spacer(),
-                // Recent Transactions and Action Buttons
-                // const RecentTransactionsWidget(),
-                Center(
-                  child: Container(
-                    alignment: Alignment.bottomCenter,
-                    // margin: EdgeInsets.only(bottom: 20.w),
-                    padding: EdgeInsets.symmetric(vertical: 10.w, horizontal: 10),
-                    decoration: _commonBoxDecoration(),
-                    width: 300,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildActionButton(
-                          Icons.add_circle,
-                          'Invoice',
-                          () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const InvoicePg()),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        _buildActionButton(
-                          Icons.add,
-                          'Purchases',
-                          () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const SalesmanPg()),
-                            );
-                          },
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        _buildActionButton(
-                          Icons.trending_up,
-                          'Sales',
-                          () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const SalesmanPg()),
-                            );
-                          },
-                        ),
-                        _buildActionButton(
-                          Icons.inventory_2,
-                          'Product',
-                          () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const ProductPage()),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _buildBottomActions(context),
                 SizedBox(height: 10.h),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSection(BuildContext context, String title, Color iconColor) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+      decoration: _commonBoxDecoration(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const SizedBox(height: 10),
+          Text(
+            title,
+            style: Theme.of(context)
+                .textTheme
+                .headlineMedium
+                ?.copyWith(color: Colors.white, fontSize: 20.sp),
+          ),
+          _buildOverviewRow(
+            card1: _buildOverviewCard('Stock Value', '₹30,000', Icons.store, iconColor),
+            card2: _buildOverviewCard('Week Sale', '₹10,000', Icons.weekend, iconColor),
+          ),
+          SizedBox(height: 10.h),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: 350.h,
+                  child: const PieChartSample3(),
+                ),
+              ),
+              SizedBox(width: 10.w),
+              const Expanded(
+                flex: 1,
+                child: RecentTransactionsWidget(),
+              ),
+            ],
+          ),
+          SizedBox(height: 10.h),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomActions(BuildContext context) {
+    return Center(
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildActionButton(Icons.add_circle, 'Invoice', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const InvoicePg()),
+              );
+            }),
+            const SizedBox(width: 5),
+            _buildActionButton(Icons.add, 'Purchases', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SalesmanPg()),
+              );
+            }),
+            const SizedBox(width: 5),
+            _buildActionButton(Icons.trending_up, 'Sales', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SalesmanPg()),
+              );
+            }),
+            _buildActionButton(Icons.inventory_2, 'Product', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductPage()),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -267,7 +184,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildOverviewCard(String title, String value, [IconData? icon, Color? iconColor]) {
     return Container(
-      height: 100.h, // Fixed height
+      height: 100.h,
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
       padding: EdgeInsets.symmetric(horizontal: 25.w),
       decoration: _commonBoxDecoration(),
@@ -284,11 +201,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     Text(
                       title,
-                      style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: Colors.white, fontSize: 16.sp),
                     ),
                     Text(
                       value,
-                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(color: Colors.white, fontSize: 14.sp),
                     ),
                   ],
                 ),
@@ -300,11 +223,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Text(
                   title,
-                  style: TextStyle(color: Colors.black87, fontSize: 16.sp),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.copyWith(color: Colors.black87, fontSize: 16.sp),
                 ),
                 Text(
                   value,
-                  style: TextStyle(color: Colors.black54, fontSize: 14.sp),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(color: Colors.black54, fontSize: 14.sp),
                 ),
               ],
             ),
@@ -327,35 +256,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildActionButton(IconData icon, String label, VoidCallback onPressed) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: onPressed,
-            child: Container(
-              width: 50.w,
-              height: 50.h,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Colors.blue, Colors.purple],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(25.r),
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          width: 80.w,
+          height: 90.h,
+          decoration: _commonBoxDecoration(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(icon, size: 40.sp, color: Colors.white),
+              const SizedBox(height: 5),
+              Text(
+                label,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodySmall
+                    ?.copyWith(color: Colors.white, fontSize: 16.sp),
               ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 28.sp,
-              ),
-            ),
+            ],
           ),
-          SizedBox(height: 5.h),
-          Text(
-            label,
-            style: TextStyle(color: Colors.white, fontSize: 15.sp),
-          ),
-        ],
+        ),
       ),
     );
   }

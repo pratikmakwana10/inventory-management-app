@@ -253,9 +253,9 @@ class _InvoicePgState extends State<InvoicePg> {
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [
             pw.Text('Notes: ${additionalInfo['notes'] ?? ''}',
-                style: const pw.TextStyle(fontSize: 8, color: PdfColors.grey)),
+                style: const pw.TextStyle(fontSize: 8, color: PdfColors.white)),
             pw.Text('Terms and Conditions: ${additionalInfo['terms_and_conditions'] ?? ''}',
-                style: const pw.TextStyle(fontSize: 8, color: PdfColors.grey)),
+                style: const pw.TextStyle(fontSize: 8, color: PdfColors.white)),
           ],
         ));
   }
@@ -458,8 +458,20 @@ class _InvoicePgState extends State<InvoicePg> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Payment Terms: ${paymentInfo['terms'] ?? ''}'),
-        Text('Accepted Payment Methods: ${paymentInfo['accepted_methods']?.join(', ') ?? ''}'),
+        Text(
+          'Payment Terms: ${paymentInfo['terms'] ?? ''}',
+          style: const TextStyle(
+            fontSize: 8,
+            color: Colors.white,
+          ),
+        ),
+        Text(
+          'Accepted Payment Methods: ${paymentInfo['accepted_methods']?.join(', ') ?? ''}',
+          style: const TextStyle(
+            fontSize: 8,
+            color: Colors.white,
+          ),
+        ),
         const Text('Bank Details:'),
         Text('  Account Number: ${bankDetails['account_number'] ?? ''}'),
         Text('  Sort Code: ${bankDetails['sort_code'] ?? ''}'),
@@ -477,11 +489,14 @@ class _InvoicePgState extends State<InvoicePg> {
         children: [
           Text(
             'Notes: ${additionalInfo['notes'] ?? ''}',
-            style: const TextStyle(fontSize: 8, color: Colors.grey),
+            style: const TextStyle(fontSize: 8, color: Colors.white),
           ),
           Text(
             'Terms and Conditions: ${additionalInfo['terms_and_conditions'] ?? ''}',
-            style: const TextStyle(fontSize: 8, color: Colors.grey),
+            style: const TextStyle(
+              fontSize: 8,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
