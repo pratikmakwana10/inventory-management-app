@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inventory_management_app/models/product_adapter.dart';
-import 'package:inventory_management_app/pages.dart/product_pg.dart';
 
 import '../models/product_model.dart';
 

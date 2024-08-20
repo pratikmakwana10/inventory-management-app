@@ -7,7 +7,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:inventory_management_app/models/product_model.dart';
 import 'package:inventory_management_app/component/floating_button.dart';
 import 'package:logger/logger.dart';
-import 'package:inventory_management_app/pages.dart/dashboard_pg.dart'; // Import DashboardScreen
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -209,19 +208,6 @@ class _ProductPageState extends State<ProductPage> {
         );
         productBox.putAt(index, updatedProduct);
         _logger.i('Updated Sale Price for ${product.productName}: ${updatedProduct.salePrice}');
-      }
-    });
-  }
-
-  void _updateQuantity(int index, int change) {
-    setState(() {
-      final product = productBox.getAt(index);
-      if (product != null) {
-        final updatedProduct = product.copyWith(
-          quantity: max(product.quantity + change, 0),
-        );
-        productBox.putAt(index, updatedProduct);
-        _logger.i('Updated Quantity for ${product.productName}: ${updatedProduct.quantity}');
       }
     });
   }
