@@ -67,10 +67,12 @@ class _InvoicePgState extends State<InvoicePg> {
               ),
               width: double.infinity,
               margin: const pw.EdgeInsets.symmetric(
-                  vertical: 10, horizontal: 00), // Margin of 10 units on all sides
+                  vertical: 10,
+                  horizontal: 00), // Margin of 10 units on all sides
               child: pw.Padding(
                 padding: const pw.EdgeInsets.symmetric(
-                    vertical: 10, horizontal: 10), // Optional padding inside the container
+                    vertical: 10,
+                    horizontal: 10), // Optional padding inside the container
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
                   children: [
@@ -111,7 +113,8 @@ class _InvoicePgState extends State<InvoicePg> {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        pw.Text(seller['company_name'] ?? '', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        pw.Text(seller['company_name'] ?? '',
+            style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
         pw.Text(seller['address'] ?? ''),
         pw.Text('Email: ${contact['email'] ?? ''}'),
         pw.Text('Phone: ${contact['phone'] ?? ''}'),
@@ -125,7 +128,8 @@ class _InvoicePgState extends State<InvoicePg> {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        pw.Text(buyer['customer_name'] ?? '', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        pw.Text(buyer['customer_name'] ?? '',
+            style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
         pw.Text(buyer['address'] ?? ''),
         pw.Text('Email: ${contact['email'] ?? ''}'),
         pw.Text('Phone: ${contact['phone'] ?? ''}'),
@@ -147,35 +151,40 @@ class _InvoicePgState extends State<InvoicePg> {
               padding: const pw.EdgeInsets.all(8),
               child: pw.Text(
                 'Item Name',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.white),
+                style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, color: PdfColors.white),
               ),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
               child: pw.Text(
                 'Item Price',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.white),
+                style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, color: PdfColors.white),
               ),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
               child: pw.Text(
                 'Qtty',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.white),
+                style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, color: PdfColors.white),
               ),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
               child: pw.Text(
                 'GST (Tax)',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.white),
+                style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, color: PdfColors.white),
               ),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
               child: pw.Text(
                 'Item Total',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.white),
+                style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold, color: PdfColors.white),
               ),
             ),
           ],
@@ -190,7 +199,8 @@ class _InvoicePgState extends State<InvoicePg> {
               ),
               pw.Padding(
                 padding: const pw.EdgeInsets.all(8),
-                child: pw.Text('${item['total_price']?.toStringAsFixed(2) ?? '0.00'}'),
+                child: pw.Text(
+                    '${item['total_price']?.toStringAsFixed(2) ?? '0.00'}'),
               ),
               pw.Padding(
                 padding: const pw.EdgeInsets.all(8),
@@ -219,10 +229,13 @@ class _InvoicePgState extends State<InvoicePg> {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
-        pw.Text('Subtotal: ${_invoiceData['subtotal']?.toStringAsFixed(2) ?? '0.00'}/-'),
+        pw.Text(
+            'Subtotal: ${_invoiceData['subtotal']?.toStringAsFixed(2) ?? '0.00'}/-'),
         pw.Text('Tax: ${_invoiceData['tax']?.toStringAsFixed(2) ?? '0.00'}/-'),
-        pw.Text('Discount: -${_invoiceData['discount']?.toStringAsFixed(2) ?? '0.00'}/-'),
-        pw.Text('Total: ${_invoiceData['total']?.toStringAsFixed(2) ?? '0.00'}/-',
+        pw.Text(
+            'Discount: -${_invoiceData['discount']?.toStringAsFixed(2) ?? '0.00'}/-'),
+        pw.Text(
+            'Total: ${_invoiceData['total']?.toStringAsFixed(2) ?? '0.00'}/-',
             style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
       ],
     );
@@ -235,7 +248,8 @@ class _InvoicePgState extends State<InvoicePg> {
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text('Payment Terms: ${paymentInfo['terms'] ?? ''}'),
-        pw.Text('Accepted Payment Methods: ${paymentInfo['accepted_methods']?.join(', ') ?? ''}'),
+        pw.Text(
+            'Accepted Payment Methods: ${paymentInfo['accepted_methods']?.join(', ') ?? ''}'),
         pw.Text('Bank Details:'),
         pw.Text('  Account Number: ${bankDetails['account_number'] ?? ''}'),
         pw.Text('  Sort Code: ${bankDetails['sort_code'] ?? ''}'),
@@ -254,7 +268,8 @@ class _InvoicePgState extends State<InvoicePg> {
           children: [
             pw.Text('Notes: ${additionalInfo['notes'] ?? ''}',
                 style: const pw.TextStyle(fontSize: 8, color: PdfColors.white)),
-            pw.Text('Terms and Conditions: ${additionalInfo['terms_and_conditions'] ?? ''}',
+            pw.Text(
+                'Terms and Conditions: ${additionalInfo['terms_and_conditions'] ?? ''}',
                 style: const pw.TextStyle(fontSize: 8, color: PdfColors.white)),
           ],
         ));
@@ -271,7 +286,8 @@ class _InvoicePgState extends State<InvoicePg> {
             children: [
               TextFormField(
                 initialValue: _invoiceData['seller']?['company_name'] ?? '',
-                decoration: const InputDecoration(labelText: 'Seller Company Name'),
+                decoration:
+                    const InputDecoration(labelText: 'Seller Company Name'),
                 onChanged: (value) {
                   setState(() {
                     _invoiceData['seller']?['company_name'] = value;
@@ -280,7 +296,8 @@ class _InvoicePgState extends State<InvoicePg> {
               ),
               TextFormField(
                 initialValue: _invoiceData['buyer']?['customer_name'] ?? '',
-                decoration: const InputDecoration(labelText: 'Buyer Customer Name'),
+                decoration:
+                    const InputDecoration(labelText: 'Buyer Customer Name'),
                 onChanged: (value) {
                   setState(() {
                     _invoiceData['buyer']?['customer_name'] = value;
@@ -357,8 +374,10 @@ class _InvoicePgState extends State<InvoicePg> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Invoice Date: ${_invoiceData['invoice_date'] ?? ''}'),
-              Text('Due Date: ${_invoiceData['due_date'] ?? ''}'),
+              Text('Invoice Date: ${_invoiceData['invoice_date'] ?? ''}',
+                  style: const TextStyle(color: Colors.white)),
+              Text('Due Date: ${_invoiceData['due_date'] ?? ''}',
+                  style: const TextStyle(color: Colors.white)),
               const SizedBox(height: 20),
               _buildSellerInfo(),
               const SizedBox(height: 20),
@@ -395,10 +414,15 @@ class _InvoicePgState extends State<InvoicePg> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(seller['company_name'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text(seller['address'] ?? ''),
-        Text('Email: ${contact['email'] ?? ''}'),
-        Text('Phone: ${contact['phone'] ?? ''}'),
+        Text(seller['company_name'] ?? '',
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(seller['address'] ?? '',
+            style: const TextStyle(color: Colors.white)),
+        Text('Email: ${contact['email'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
+        Text('Phone: ${contact['phone'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
       ],
     );
   }
@@ -409,10 +433,15 @@ class _InvoicePgState extends State<InvoicePg> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(buyer['customer_name'] ?? '', style: const TextStyle(fontWeight: FontWeight.bold)),
-        Text(buyer['address'] ?? ''),
-        Text('Email: ${contact['email'] ?? ''}'),
-        Text('Phone: ${contact['phone'] ?? ''}'),
+        Text(buyer['customer_name'] ?? '',
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white)),
+        Text(buyer['address'] ?? '',
+            style: const TextStyle(color: Colors.white)),
+        Text('Email: ${contact['email'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
+        Text('Phone: ${contact['phone'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
       ],
     );
   }
@@ -422,16 +451,21 @@ class _InvoicePgState extends State<InvoicePg> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Items:', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text('Items:',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         ...items.map((item) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: Text(item['description'] ?? ''),
+                child: Text(item['description'] ?? '',
+                    style: const TextStyle(color: Colors.white)),
               ),
-              Text('Quantity: ${item['quantity'] ?? 0}'),
-              Text('Price: ${item['total_price']?.toStringAsFixed(2) ?? '0.00'}'),
+              Text('Quantity: ${item['quantity'] ?? 0}',
+                  style: const TextStyle(color: Colors.white)),
+              Text(
+                  'Price: ${item['total_price']?.toStringAsFixed(2) ?? '0.00'}',
+                  style: const TextStyle(color: Colors.white)),
             ],
           );
         }),
@@ -443,11 +477,17 @@ class _InvoicePgState extends State<InvoicePg> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Subtotal: ${_invoiceData['subtotal']?.toStringAsFixed(2) ?? '0.00'}'),
-        Text('Tax: ${_invoiceData['tax']?.toStringAsFixed(2) ?? '0.00'}'),
-        Text('Discount: -${_invoiceData['discount']?.toStringAsFixed(2) ?? '0.00'}'),
+        Text(
+            'Subtotal: ${_invoiceData['subtotal']?.toStringAsFixed(2) ?? '0.00'}',
+            style: const TextStyle(color: Colors.white)),
+        Text('Tax: ${_invoiceData['tax']?.toStringAsFixed(2) ?? '0.00'}',
+            style: const TextStyle(color: Colors.white)),
+        Text(
+            'Discount: -${_invoiceData['discount']?.toStringAsFixed(2) ?? '0.00'}',
+            style: const TextStyle(color: Colors.white)),
         Text('Total: ${_invoiceData['total']?.toStringAsFixed(2) ?? '0.00'}',
-            style: const TextStyle(fontWeight: FontWeight.bold)),
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white)),
       ],
     );
   }
@@ -472,10 +512,14 @@ class _InvoicePgState extends State<InvoicePg> {
             color: Colors.white,
           ),
         ),
-        const Text('Bank Details:'),
-        Text('  Account Number: ${bankDetails['account_number'] ?? ''}'),
-        Text('  Sort Code: ${bankDetails['sort_code'] ?? ''}'),
-        Text('Payment Instructions: ${paymentInfo['instructions'] ?? ''}'),
+        const Text('Bank Details:',
+            style: const TextStyle(color: Colors.white)),
+        Text('  Account Number: ${bankDetails['account_number'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
+        Text('  Sort Code: ${bankDetails['sort_code'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
+        Text('Payment Instructions: ${paymentInfo['instructions'] ?? ''}',
+            style: const TextStyle(color: Colors.white)),
       ],
     );
   }

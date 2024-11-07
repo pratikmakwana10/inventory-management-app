@@ -102,8 +102,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ?.copyWith(color: Colors.white, fontSize: 20.sp),
           ),
           _buildOverviewRow(
-            card1: _buildOverviewCard('Stock Value', '₹30,000', Icons.store, iconColor),
-            card2: _buildOverviewCard('Week Sale', '₹10,000', Icons.weekend, iconColor),
+            card1: _buildOverviewCard(
+                'Stock Value', '₹30,000', Icons.store, iconColor),
+            card2: _buildOverviewCard(
+                'Week Sale', '₹10,000', Icons.weekend, iconColor),
           ),
           SizedBox(height: 10.h),
           Row(
@@ -132,9 +134,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Center(
       child: Container(
         alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Wrap(
+          spacing: 10.w,
+          runSpacing: 10.h,
+          alignment: WrapAlignment.center,
           children: [
             _buildActionButton(Icons.add_circle, 'Invoice', () {
               Navigator.push(
@@ -142,14 +145,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 MaterialPageRoute(builder: (context) => const InvoicePg()),
               );
             }),
-            const SizedBox(width: 5),
             _buildActionButton(Icons.add, 'Purchases', () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SalesmanPg()),
               );
             }),
-            const SizedBox(width: 5),
             _buildActionButton(Icons.trending_up, 'Sales', () {
               Navigator.push(
                 context,
@@ -182,7 +183,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildOverviewCard(String title, String value, [IconData? icon, Color? iconColor]) {
+  Widget _buildOverviewCard(String title, String value,
+      [IconData? icon, Color? iconColor]) {
     return Container(
       height: 100.h,
       margin: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
@@ -253,30 +255,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildActionButton(IconData icon, String label, VoidCallback onPressed) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
-      child: GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          width: 80.w,
-          height: 90.h,
-          decoration: _commonBoxDecoration(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(icon, size: 40.sp, color: Colors.white),
-              const SizedBox(height: 5),
-              Text(
-                label,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: Colors.white, fontSize: 16.sp),
-              ),
-            ],
-          ),
+  Widget _buildActionButton(
+      IconData icon, String label, VoidCallback onPressed) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 80.w,
+        height: 90.h,
+        decoration: _commonBoxDecoration(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40.sp, color: Colors.white),
+            const SizedBox(height: 5),
+            Text(
+              label,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Colors.white, fontSize: 16.sp),
+            ),
+          ],
         ),
       ),
     );
