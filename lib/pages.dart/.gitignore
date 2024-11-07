@@ -1,0 +1,103 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/**/GeneratedPluginRegistrant.kt
+
+# iOS related
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/engine/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Xcode related
+**/ios/Runner.xcworkspace/
+**/ios/Pods/
+**/ios/Podfile.lock
+**/ios/Podfile
+**/ios/*.podspec
+**/ios/Flutter/Debug.xcconfig
+**/ios/Flutter/Release.xcconfig
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code related
+.vscode/
+.history/
+
+# Generated files
+coverage/
+*.log
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+**/*.log
+**/*.tmp
+**/*.swp
+**/*.swo
+*.DS_Store
+*.class
+*.lock
+*.log
+*.pyc
+*.pyo
+*.swp
+*.sqlite
+
+# JetBrains related
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Mac related
+*.DS_Store
+*.app
+
+# Linux related
+**/linux/flutter/ephemeral/
+**/linux/flutter/Flutter
+**/linux/Makefile
+**/linux/CMakeLists.txt
+**/linux/example/
+
+# Windows related
+**/windows/flutter/ephemeral/
+**/windows/flutter/Flutter
+**/windows/example/
+
+# Web related
+**/web/compiled/
+**/web/Flutter/
+**/web/Flutter.manifest
+**/web/flutter_export_environment.sh
+
+# Miscellaneous
+*.log
+*.tmp
